@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{Component} from "react";
+import "./App.css";
+import { connect} from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component{
+
+  // state = {
+  //   age : 21
+  // }
+  
+  //  IncreaseAge = () =>{
+
+  //   this.setState ({
+  //     age : this.state.age + 1
+  //   })
+  // }
+
+  // DecreaseAge = () =>{
+
+  //   this.setState ({
+  //     age : this.state.age - 1
+  //   })
+  // }
+
+  render(){
+    return(
+      <div>
+      <div>Age : {this.props.age} </div>
+      <button onClick={this.props.IncreaseAge}>Age Up : </button>
+       <button onClick={this.props.DecreaseAge}>Age Down: </button>
+      </div>
+    )
+  }
 }
 
-export default App;
+const mapStateToProps = (state) =>{
+  return{
+    age :state.age
+  }
+}
+
+const mapDispatchToProps = (dispach) =>{
+  return{
+    IncreaseAge : () => dispach({type : 'AGE_UP'}),
+    DecreaseAge : () => dispach({type : 'AGE_DOWN'})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (App);
