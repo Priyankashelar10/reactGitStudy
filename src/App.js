@@ -29,6 +29,22 @@ class App extends Component{
       <div>Age : {this.props.age} </div>
       <button onClick={this.props.IncreaseAge}>Age Up : </button>
        <button onClick={this.props.DecreaseAge}>Age Down: </button>
+       <div> History</div>
+       <div>
+         <ul >
+           {
+            this.props.history.map( output =>
+              <li
+               key={output.id} 
+               onClick = {() =>
+                this.props.DeleteItem(output.id)
+                }>
+                 {output.value}
+              </li>)
+           }
+         </ul>
+       </div>
+      
       </div>
     )
   }
@@ -36,14 +52,16 @@ class App extends Component{
 
 const mapStateToProps = (state) =>{
   return{
-    age :state.age
+    age :state.age,
+    history : state.history
   }
 }
 
 const mapDispatchToProps = (dispach) =>{
   return{
     IncreaseAge : () => dispach({type : 'AGE_UP'}),
-    DecreaseAge : () => dispach({type : 'AGE_DOWN'})
+    DecreaseAge : () => dispach({type : 'AGE_DOWN'}),
+    DeleteItem : (id ) => dispach({type : 'DeleteItem', key : id})
   }
 }
 
